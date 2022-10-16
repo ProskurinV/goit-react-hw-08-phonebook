@@ -1,3 +1,5 @@
+// import { useState } from 'react';
+
 import { PropTypes } from 'prop-types';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -28,6 +30,9 @@ const initialValues = {
 };
 
 export default function FormEl({ onSubmit }) {
+  // const [name, setName] = useState('');
+  // const [number, setNumber] = useState('');
+
   const handleSubmit = (values, { resetForm }) => {
     onSubmit(values);
     resetForm();
