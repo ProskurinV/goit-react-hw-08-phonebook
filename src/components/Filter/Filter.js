@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types';
 
 import { FindWrapper, FindTitle, Input } from './Filter.styled';
 
-export default function Filter({ title, onChange, value }) {
+export default function Filter({ title, onChange, filter }) {
   return (
     <FindWrapper>
       <FindTitle>{title}</FindTitle>
@@ -10,7 +10,7 @@ export default function Filter({ title, onChange, value }) {
         type="text"
         name="filter"
         placeholder="Enter search name"
-        value={value}
+        value={filter}
         onChange={onChange}
       />
     </FindWrapper>

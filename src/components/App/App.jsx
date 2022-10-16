@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MainBox } from './App.styled';
 import { nanoid } from 'nanoid';
 import FormEl from 'components/Form/Form';
@@ -6,19 +6,19 @@ import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter';
 import Notiflix from 'notiflix';
 import Title from 'components/Title/Title';
+import { useLocalSrorage } from 'components/hooks/useLocalStorage';
 
 export default function App() {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('contacts')) ?? '';
-  });
+  const [contacts, setContacts] = useLocalSrorage('contacts', '');
 
   const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const findDuplicateName = name => {
+    return contacts.find(item => item.name.toLowerCase() === name);
+  };
 
   const handlerFormSubmit = (name, number) => {
+    // const { name, number } = contact;
     const nameToRegistr = name.toLowerCase();
     if (findDuplicateName(nameToRegistr)) {
       Notiflix.Notify.info(`${name} is already in your contacts`);
@@ -46,19 +46,8 @@ export default function App() {
     );
   };
 
-  // const getVisibleContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(normalizedFilter)
-  //   );
-  // };
-
   const onFilterChange = event => {
     setFilter(event.currentTarget.value);
-  };
-
-  const findDuplicateName = name => {
-    return contacts.find(item => item.name.toLowerCase() === name);
   };
 
   return (
