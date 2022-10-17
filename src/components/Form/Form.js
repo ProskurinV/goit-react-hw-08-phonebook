@@ -35,8 +35,11 @@ export default function FormEl({ onSubmit }) {
 
   const handleSubmit = (values, { resetForm }) => {
     onSubmit(values);
+    // console.log(values);
     resetForm();
   };
+  // console.log(onSubmit);
+
   return (
     <>
       <Formik

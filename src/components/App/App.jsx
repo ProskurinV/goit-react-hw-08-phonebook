@@ -9,16 +9,11 @@ import Title from 'components/Title/Title';
 import { useLocalSrorage } from 'components/hooks/useLocalStorage';
 
 export default function App() {
-  const [contacts, setContacts] = useLocalSrorage('contacts', '');
-
+  const [contacts, setContacts] = useLocalSrorage('contacts', []);
   const [filter, setFilter] = useState('');
 
-  const findDuplicateName = name => {
-    return contacts.find(item => item.name.toLowerCase() === name);
-  };
-
-  const handlerFormSubmit = (name, number) => {
-    // const { name, number } = contact;
+  const handlerFormSubmit = ({ name, number }) => {
+    console.log(name, number);
     const nameToRegistr = name.toLowerCase();
     if (findDuplicateName(nameToRegistr)) {
       Notiflix.Notify.info(`${name} is already in your contacts`);
@@ -41,13 +36,18 @@ export default function App() {
   };
 
   const filteredContacts = () => {
+    const normFilter = filter.toLowerCase();
     return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filter.toLowerCase())
+      name.toLowerCase().includes(normFilter)
     );
   };
 
   const onFilterChange = event => {
     setFilter(event.currentTarget.value);
+  };
+
+  const findDuplicateName = name => {
+    return contacts.find(item => item.name.toLowerCase() === name);
   };
 
   return (
@@ -56,13 +56,13 @@ export default function App() {
       <FormEl onSubmit={handlerFormSubmit} />
       <Filter
         title="Find contacts by name"
-        value={filter}
+        filter={filter}
         onChange={onFilterChange}
       />
       {contacts.length > 0 && (
         <ContactList
           title="Contacts"
-          contacts={filteredContacts}
+          contacts={filteredContacts()}
           onDeleteContact={deleteContact}
         />
       )}
