@@ -13,7 +13,7 @@ export default function App() {
   const [filter, setFilter] = useState('');
 
   const handlerFormSubmit = ({ name, number }) => {
-    console.log(name, number);
+    // console.log(name, number);
     const nameToRegistr = name.toLowerCase();
     if (findDuplicateName(nameToRegistr)) {
       Notiflix.Notify.info(`${name} is already in your contacts`);

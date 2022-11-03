@@ -4,6 +4,8 @@ import { PropTypes } from 'prop-types';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { FormBook, Input, Label, Btn, Error } from './Form.styled';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
 let schema = yup.object().shape({
   name: yup
@@ -30,15 +32,13 @@ const initialValues = {
 };
 
 export default function FormEl({ onSubmit }) {
-  // const [name, setName] = useState('');
-  // const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    onSubmit(values);
-    // console.log(values);
+    dispatch(addContact(onSubmit(values)));
+
     resetForm();
   };
-  // console.log(onSubmit);
 
   return (
     <>

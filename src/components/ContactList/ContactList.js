@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import {
   ContactSection,
@@ -7,7 +8,9 @@ import {
 } from './ContactList.styled';
 import Item from 'components/ContactItem/ContactItem';
 
-export default function ContactList({ title, contacts, onDeleteContact }) {
+export default function ContactList({ title }) {
+  // { title, contacts, onDeleteContact }
+  const contacts = useSelector(state => state.contacts);
   return (
     <ContactSection>
       <ContactTitle>{title}</ContactTitle>
@@ -18,7 +21,7 @@ export default function ContactList({ title, contacts, onDeleteContact }) {
             id={id}
             name={name}
             number={number}
-            onDeleteContact={onDeleteContact}
+            // onDeleteContact={onDeleteContact}
           />
         ))}
       </ContactWrapper>
@@ -35,5 +38,5 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  onDeleteContact: PropTypes.func.isRequired,
+  // onDeleteContact: PropTypes.func.isRequired,
 };
