@@ -1,11 +1,10 @@
-// import { useState } from 'react';
-
-import { PropTypes } from 'prop-types';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import Notiflix from 'notiflix';
 import { FormBook, Input, Label, Btn, Error } from './Form.styled';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 
 let schema = yup.object().shape({
   name: yup
@@ -31,11 +30,24 @@ const initialValues = {
   number: '',
 };
 
-export default function FormEl({ onSubmit }) {
+export default function FormEl() {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(addContact(onSubmit(values)));
+    const findDuplicateName = name => {
+      return contacts.contactList.find(
+        item => item.name.toLowerCase() === name
+      );
+    };
+    const { name } = values;
+    const nameToRegistr = name.toLowerCase();
+    if (findDuplicateName(contacts.contactList, nameToRegistr)) {
+      Notiflix.Notify.info(`${name} is already in your contacts`);
+      return;
+    }
+
+    dispatch(addContact(values));
 
     resetForm();
   };
@@ -75,7 +87,3 @@ export default function FormEl({ onSubmit }) {
     </>
   );
 }
-
-FormEl.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

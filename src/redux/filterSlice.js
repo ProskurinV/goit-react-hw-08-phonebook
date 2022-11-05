@@ -1,17 +1,17 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-// const filtersInitialState = {
-//   status: statusFilters.all,
-// };
-// const filtersSlice = createSlice({
-//   name: 'filter',
-//   initialState: filterInitialState,
-//   reducers: {
-//     setFilter(state, action) {
-//       state.status = action.payload;
-//     },
-//   },
-// });
-// // Экспортируем генераторы экшенов и редюсер
-// export const { setFilter } = filtersSlice.actions;
-// export const filtersReducer = filtersSlice.reducer;
+const filterInitialState = {
+  value: '',
+};
+const filterSlice = createSlice({
+  name: 'filter',
+  initialState: filterInitialState,
+  reducers: {
+    setFilter(state, action) {
+      state.value = action.payload;
+    },
+  },
+});
+// Экспортируем генераторы экшенов и редюсер
+export const { setFilter } = filterSlice.actions;
+export const filterReducer = filterSlice.reducer;

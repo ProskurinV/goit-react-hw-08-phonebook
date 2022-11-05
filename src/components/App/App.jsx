@@ -1,71 +1,60 @@
-import { useState } from 'react';
 import { MainBox } from './App.styled';
-import { nanoid } from 'nanoid';
 import FormEl from 'components/Form/Form';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter';
-import Notiflix from 'notiflix';
 import Title from 'components/Title/Title';
-import { useLocalSrorage } from 'components/hooks/useLocalStorage';
+// import { useDispatch } from 'react-redux';
+// import { useSelector } from 'react-redux';
+// import { addContact, deleteContact } from 'redux/contactsSlice';
+// import { getContacts, getFilter } from 'redux/selectors';
 
 export default function App() {
-  const [contacts, setContacts] = useLocalSrorage('contacts', []);
-  const [filter, setFilter] = useState('');
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(getContacts);
+  // const filter = useSelector(getFilter);
 
-  const handlerFormSubmit = ({ name, number }) => {
-    // console.log(name, number);
-    const nameToRegistr = name.toLowerCase();
-    if (findDuplicateName(nameToRegistr)) {
-      Notiflix.Notify.info(`${name} is already in your contacts`);
-      return;
-    }
-    addContact(name, number);
-  };
+  // const handlerFormSubmit = ({ name, number }) => {
+  //   // const nameToRegistr = name.toLowerCase();
+  //   // if (findDuplicateName(nameToRegistr)) {
+  //   //   Notiflix.Notify.info(`${name} is already in your contacts`);
+  //   //   return;
+  //   // }
+  //   dispatch(addContact(name, number));
+  // };
 
-  const addContact = (name, number) => {
-    const contact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-    setContacts(contacts => [contact, ...contacts]);
-  };
+  // const filteredContacts = () => {
+  //   const normFilter = filter.contactList.toLowerCase();
+  //   return contacts.contactList.filter(({ name }) =>
+  //     name.toLowerCase().includes(normFilter)
+  //   );
+  // };
 
-  const deleteContact = id => {
-    setContacts(contacts => contacts.filter(contact => contact.id !== id));
-  };
+  // const onFilterChange = event => {
+  //   dispatch(setFilter(event.currentTarget.value));
+  // };
 
-  const filteredContacts = () => {
-    const normFilter = filter.toLowerCase();
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(normFilter)
-    );
-  };
-
-  const onFilterChange = event => {
-    setFilter(event.currentTarget.value);
-  };
-
-  const findDuplicateName = name => {
-    return contacts.find(item => item.name.toLowerCase() === name);
-  };
+  // const findDuplicateName = name => {
+  //   return contacts.contactList.find(item => item.name.toLowerCase() === name);
+  // };
 
   return (
     <MainBox>
       <Title title="Phonebook" />
-      <FormEl onSubmit={handlerFormSubmit} />
+      <FormEl
+      // onSubmit={handlerFormSubmit}
+      />
       <Filter
         title="Find contacts by name"
-        filter={filter}
-        onChange={onFilterChange}
+        // filter={filter}
+        // onChange={onFilterChange}
       />
-      {contacts.length > 0 && (
-        <ContactList
-          title="Contacts"
-          contacts={filteredContacts()}
-          onDeleteContact={deleteContact}
-        />
-      )}
+      {/* {contacts.length > 0 && ( */}
+      <ContactList
+        title="Contacts"
+        // contacts={filteredContacts()}
+        // onDeleteContact={() => dispatch(deleteContact)}
+      />
+      {/* )} */}
     </MainBox>
   );
 }
