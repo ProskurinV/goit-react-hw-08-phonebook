@@ -15,20 +15,18 @@ const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
   reducers: {
-    addContact: {
-      reducer(state, action) {
-        state.contactList.push(action.payload);
-      },
-      prepare(name, number) {
-        return {
-          payload: {
-            name,
-            number,
-            id: nanoid(),
-          },
-        };
-      },
+    addContact(state, action) {
+      state.contactList.push({ ...action.payload, id: nanoid() });
     },
+    // prepare(name, number) {
+    //   return {
+    //     payload: {
+    //       name,
+    //       number,
+    //       id: nanoid(),
+    //     },
+    //   };
+    // },
 
     deleteContact(state, action) {
       const index = state.contactList.findIndex(
@@ -48,5 +46,7 @@ export const contactsReducer = persistReducer(
   persistConfig,
   contactsSlice.reducer
 );
+
 // Экспортируем генераторы экшенов и редюсер
 export const { contactList, addContact, deleteContact } = contactsSlice.actions;
+// export const contactsReducer = contactsSlice.reducer;

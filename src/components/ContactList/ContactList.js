@@ -9,7 +9,6 @@ import Item from 'components/ContactItem/ContactItem';
 import { getContacts, getFilter } from 'redux/selectors';
 
 export default function ContactList({ title }) {
-  // { title, contacts, onDeleteContact }
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
@@ -21,13 +20,16 @@ export default function ContactList({ title }) {
 
   return (
     <ContactSection>
-      <ContactTitle>{title}</ContactTitle>
       {contacts.contactList.length > 0 && (
-        <ContactWrapper>
-          {filteredContacts.map(({ id, name, number }) => (
-            <Item key={id} id={id} name={name} number={number} />
-          ))}
-        </ContactWrapper>
+        <>
+          <ContactTitle>{title}</ContactTitle>
+
+          <ContactWrapper>
+            {filteredContacts.map(({ id, name, number }) => (
+              <Item key={id} id={id} name={name} number={number} />
+            ))}
+          </ContactWrapper>
+        </>
       )}
     </ContactSection>
   );

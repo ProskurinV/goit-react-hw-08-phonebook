@@ -27,6 +27,4 @@ export default function Filter({ title }) {
 
 Filter.propTypes = {
   title: PropTypes.string.isRequired,
-  // onChange: PropTypes.func.isRequired,
-  // filter: PropTypes.string.isRequired,
 };
