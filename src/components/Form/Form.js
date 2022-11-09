@@ -35,10 +35,10 @@ export default function FormEl() {
   const contacts = useSelector(getContacts);
 
   const handleSubmit = (values, { resetForm }) => {
-    const findDuplicateName = name => {
-      return contacts.contactList.find(
-        item => item.name.toLowerCase() === name
-      );
+    // const { name } = values;
+
+    const findDuplicateName = (contacts, newName) => {
+      return contacts.find(({ name }) => name.toLowerCase() === newName);
     };
     const { name } = values;
     const nameToRegistr = name.toLowerCase();
