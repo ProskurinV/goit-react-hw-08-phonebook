@@ -14,13 +14,13 @@ export default function ContactList({ title }) {
 
   const normFilter = filter.value.toLowerCase();
 
-  const filteredContacts = contacts.contactList.filter(({ name }) =>
+  const filteredContacts = contacts.items.filter(({ name }) =>
     name?.toLowerCase()?.includes(normFilter)
   );
 
   return (
     <ContactSection>
-      {contacts.contactList.length > 0 && (
+      {contacts.items.length > 0 && (
         <>
           <ContactTitle>{title}</ContactTitle>
 

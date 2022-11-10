@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import Notiflix from 'notiflix';
 import { FormBook, Input, Label, Btn, Error } from './Form.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 
 let schema = yup.object().shape({
@@ -35,14 +35,12 @@ export default function FormEl() {
   const contacts = useSelector(getContacts);
 
   const handleSubmit = (values, { resetForm }) => {
-    // const { name } = values;
-
     const findDuplicateName = (contacts, newName) => {
       return contacts.find(({ name }) => name.toLowerCase() === newName);
     };
     const { name } = values;
     const nameToRegistr = name.toLowerCase();
-    if (findDuplicateName(contacts.contactList, nameToRegistr)) {
+    if (findDuplicateName(contacts.items, nameToRegistr)) {
       Notiflix.Notify.info(`${name} is already in your contacts`);
       return;
     }
