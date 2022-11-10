@@ -25,8 +25,8 @@ export default function ContactList({ title }) {
           <ContactTitle>{title}</ContactTitle>
 
           <ContactWrapper>
-            {filteredContacts.map(({ id, name, number }) => (
-              <Item key={id} id={id} name={name} number={number} />
+            {filteredContacts.map(({ id, name, phone }) => (
+              <Item key={id} id={id} name={name} phone={phone} />
             ))}
           </ContactWrapper>
         </>

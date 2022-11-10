@@ -46,7 +46,6 @@ export default function FormEl() {
     }
 
     dispatch(addContact(values));
-
     resetForm();
   };
 
