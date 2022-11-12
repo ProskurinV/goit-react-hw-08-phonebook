@@ -6,7 +6,7 @@ import {
   ContactWrapper,
 } from './ContactList.styled';
 import Item from 'components/ContactItem/ContactItem';
-import { getContacts, getFilter } from 'redux/selectors';
+import { getContacts, getFilter } from 'redux/contacts/selectors';
 
 export default function ContactList({ title }) {
   const contacts = useSelector(getContacts);

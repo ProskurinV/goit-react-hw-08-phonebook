@@ -1,29 +1,51 @@
-import { MainBox } from './App.styled';
-import FormEl from 'components/Form/Form';
-import ContactList from 'components/ContactList/ContactList';
-import Filter from 'components/Filter';
-import Title from 'components/Title/Title';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from '../../redux/operations';
-import { getError, getIsLoading } from 'redux/selectors';
+import { lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-export default function App() {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+const Homepage = lazy(() => import());
+const RegisterPage = lazy(() => import());
+const LoginPage = lazy(() => import());
+const ContactsPage = lazy(() => import());
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
+export function App() {
   return (
-    <MainBox>
-      <Title title="Phonebook" />
-      <FormEl />
-      <Filter title="Find contacts by name" />
-      {isLoading && !error && <b>Request in progress...</b>}
-      <ContactList title="Contacts" />
-    </MainBox>
-  );
+    <Routes>
+      <Route path='/' element={}>
+        <Route index element={}></Route>
+        <Route path='/register' element={}></Route>
+        <Route path='/login' element={}></Route>
+        <Route path='/contacts' element={}></Route>
+      </Route>
+    </Routes>
+  )
+  
 }
+
+// import { MainBox } from './App.styled';
+// import FormEl from 'components/Form/Form';
+// import ContactList from 'components/ContactList/ContactList';
+// import Filter from 'components/Filter';
+// import Title from 'components/Title/Title';
+// import { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { fetchContacts } from '../../redux/operations';
+// import { getError, getIsLoading } from 'redux/selectors';
+
+// export default function App() {
+//   const dispatch = useDispatch();
+//   const isLoading = useSelector(getIsLoading);
+//   const error = useSelector(getError);
+
+//   useEffect(() => {
+//     dispatch(fetchContacts());
+//   }, [dispatch]);
+
+//   return (
+//     <MainBox>
+//       <Title title="Phonebook" />
+//       <FormEl />
+//       <Filter title="Find contacts by name" />
+//       {isLoading && !error && <b>Request in progress...</b>}
+//       <ContactList title="Contacts" />
+//     </MainBox>
+//   );
+// }

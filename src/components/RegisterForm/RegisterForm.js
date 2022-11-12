@@ -1,10 +1,10 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Notiflix from 'notiflix';
-import { FormBook, Input, Label, Btn, Error } from './Form.styled';
+import { FormBook, Input, Label, Btn, Error } from './RegisterForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
-import { getContacts } from 'redux/selectors';
+import { getContacts } from 'redux/contacts/selectors';
 
 let schema = yup.object().shape({
   name: yup

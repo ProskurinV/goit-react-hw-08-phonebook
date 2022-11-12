@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types';
 import { FindWrapper, FindTitle, Input } from './Filter.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from 'redux/filterSlice';
-import { getFilter } from 'redux/selectors';
+import { getFilter } from 'redux/contacts/selectors';
 
 export default function Filter({ title }) {
   const dispatch = useDispatch();
