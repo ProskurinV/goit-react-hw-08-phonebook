@@ -2,16 +2,9 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { FormBook, Input, Label, Btn, Error } from './RegisterForm.styled';
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/auth/operations';
+import { logIn } from 'redux/auth/operations';
 
 let schema = yup.object().shape({
-  name: yup
-    .string()
-    .matches(
-      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
-      "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-    )
-    .required('Please, enter name'),
   email: yup.string().email(),
   password: yup
     .string()
@@ -21,7 +14,6 @@ let schema = yup.object().shape({
 });
 
 const initialValues = {
-  name: '',
   email: '',
   password: '',
 };
@@ -31,10 +23,9 @@ export default function FormEl() {
 
   const handleSubmit = (values, { resetForm }) => {
     dispatch(
-      register(
+      logIn(
         values
-        // const form=event.currentTarget;
-        // { name, email:form.elements.email.value, password }
+        // { email, password }
       )
     );
     // dispatch(addContact(values));
@@ -49,16 +40,6 @@ export default function FormEl() {
         validationSchema={schema}
       >
         <FormBook autoComplete="off">
-          <Label>
-            Name
-            <Input
-              type="text"
-              placeholder="Enter name"
-              name="name"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            />
-            <Error name="name" component="div" />
-          </Label>
           <Label>
             Email
             <Input
@@ -79,7 +60,7 @@ export default function FormEl() {
             />
             <Error name="password" component="div" />
           </Label>
-          <Btn type="submit">Register</Btn>
+          <Btn type="submit">Log In</Btn>
         </FormBook>
       </Formik>
     </>

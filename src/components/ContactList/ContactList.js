@@ -6,31 +6,21 @@ import {
   ContactWrapper,
 } from './ContactList.styled';
 import Item from 'components/ContactItem/ContactItem';
-import { getContacts, getFilter } from 'redux/contacts/selectors';
 
 export default function ContactList({ title }) {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-
-  const normFilter = filter.value.toLowerCase();
-
-  const filteredContacts = contacts.items.filter(({ name }) =>
-    name?.toLowerCase()?.includes(normFilter)
-  );
+  const contacts = useSelector(selectAllContacts);
 
   return (
     <ContactSection>
-      {contacts.items.length > 0 && (
-        <>
-          <ContactTitle>{title}</ContactTitle>
+      <>
+        <ContactTitle>{title}</ContactTitle>
 
-          <ContactWrapper>
-            {filteredContacts.map(({ id, name, phone }) => (
-              <Item key={id} id={id} name={name} phone={phone} />
-            ))}
-          </ContactWrapper>
-        </>
-      )}
+        <ContactWrapper>
+          {contacts.map(({ id, name, phone }) => (
+            <Item key={id} id={id} name={name} phone={phone} />
+          ))}
+        </ContactWrapper>
+      </>
     </ContactSection>
   );
 }
