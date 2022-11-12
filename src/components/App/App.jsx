@@ -1,10 +1,10 @@
-import { useAuth } from 'hooks/useAuth';
+import { useAuth } from 'hooks';
 import { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { refreshUser } from 'redux/auth/operations';
-import { RestrictedRoute } from './RestrictedRoute';
-import { PrivatRoute } from './PrivatRoute';
+import { RestrictedRoute } from '../RestrictedRoute';
+import { PrivateRoute } from '../PrivateRoute';
 import { Layout } from 'components/Layout';
 
 const Homepage = lazy(() => import('../../pages/Home'));
@@ -19,64 +19,35 @@ export function App() {
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
-  return (
-    !isRefreshing && (
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Homepage />}></Route>
-          <Route
-            path="/register"
-            element={
-              <RestrictedRoute
-                component={RegisterPage}
-                redirectTo="/contacts"
-              />
-            }
-          ></Route>
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute component={LoginPage} redirectTo="/contacts" />
-            }
-          ></Route>
-          <Route
-            path="/contacts"
-            element={
-              <PrivatRoute component={ContactsPage} redirectTo="/login" />
-            }
-          ></Route>
-        </Route>
-      </Routes>
-    )
+
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Homepage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute component={<LoginPage />} redirectTo="/contacts" />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
-
-// import { MainBox } from './App.styled';
-// import FormEl from 'components/Form/Form';
-// import ContactList from 'components/ContactList/ContactList';
-// import Filter from 'components/Filter';
-// import Title from 'components/Title/Title';
-// import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchContacts } from '../../redux/operations';
-// import { getError, getIsLoading } from 'redux/selectors';
-
-// export default function App() {
-//   const dispatch = useDispatch();
-//   const isLoading = useSelector(getIsLoading);
-//   const error = useSelector(getError);
-
-//   useEffect(() => {
-//     dispatch(fetchContacts());
-//   }, [dispatch]);
-
-//   return (
-//     <MainBox>
-//       <Title title="Phonebook" />
-//       <FormEl />
-//       <Filter title="Find contacts by name" />
-//       {isLoading && !error && <b>Request in progress...</b>}
-//       <ContactList title="Contacts" />
-//     </MainBox>
-//   );
-// }

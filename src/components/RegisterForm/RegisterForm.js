@@ -26,7 +26,7 @@ const initialValues = {
   password: '',
 };
 
-export default function FormEl() {
+export default function RegisterForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {

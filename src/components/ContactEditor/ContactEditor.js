@@ -1,9 +1,8 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { FormBook, Input, Label, Btn, Error } from './RegisterForm.styled';
-
+import { FormBook, Input, Label, Btn, Error } from './ContactEditor.styled';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/tasks/operations';
+import { addContact } from 'redux/contacts/operations';
 
 let schema = yup.object().shape({
   name: yup
@@ -36,7 +35,7 @@ export function ContactEditor() {
     dispatch(addContact(values));
     // dispatch(addContact(values));
     resetForm();
-    alert('Task cannot be empty. Enter some text!');
+    alert('Contact cannot be empty. Enter some text!');
   };
 
   return (

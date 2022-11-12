@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { FormBook, Input, Label, Btn, Error } from './RegisterForm.styled';
+import { FormBook, Input, Label, Btn, Error } from './LoginForm.styled';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 
@@ -18,7 +18,7 @@ const initialValues = {
   password: '',
 };
 
-export default function FormEl() {
+export function LoginForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
