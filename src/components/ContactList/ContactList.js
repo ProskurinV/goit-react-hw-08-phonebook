@@ -5,7 +5,7 @@ import {
   ContactTitle,
   ContactWrapper,
 } from './ContactList.styled';
-import Item from 'components/ContactItem/ContactItem';
+import Item from 'components/Contact/Contact';
 
 export default function ContactList({ title }) {
   const contacts = useSelector(selectAllContacts);
