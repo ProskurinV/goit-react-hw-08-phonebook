@@ -10,9 +10,11 @@ const getActionsWithType = type =>
 const handleFetchContactsReducer = (state, action) => {
   state.items = action.payload;
 };
+
 const handleAddContactReducer = (state, action) => {
   state.items.push(action.payload);
 };
+
 const handleDeleteContactReducer = (state, action) => {
   const index = state.items.findIndex(
     contact => contact.id === action.payload.id
@@ -37,6 +39,7 @@ const contactsSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
+    filter: '',
   },
   extraReducers: builder =>
     builder
@@ -55,3 +58,5 @@ const contactsSlice = createSlice({
 });
 
 export const contactsReducer = contactsSlice.reducer;
+
+// export const { updateFilter } = contactsSlice.actions;
