@@ -6,9 +6,10 @@ import {
   ContactWrapper,
 } from './ContactList.styled';
 import Item from 'components/Contact/Contact';
+import { selectContacts } from 'redux/contacts/selectors';
 
 export default function ContactList({ title }) {
-  const contacts = useSelector(selectAllContacts);
+  const contacts = useSelector(selectContacts);
 
   return (
     <ContactSection>
