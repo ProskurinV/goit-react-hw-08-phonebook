@@ -10,7 +10,7 @@ import { Layout } from 'components/Layout';
 const Homepage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
-const ContactsPage = lazy(() => import('../pages/Contacts'));
+const ContactsPage = lazy(() => import('../pages/ContactsPage'));
 
 export function App() {
   const dispatch = useDispatch();

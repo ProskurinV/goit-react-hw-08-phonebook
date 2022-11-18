@@ -1,3 +1,44 @@
+// Need to use the React-specific entry point to import createApi
+// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+// // Define a service using a base URL and expected endpoints
+// export const contactsApi = createApi({
+//   reducerPath: 'contactsApi',
+//   baseQuery: fetchBaseQuery({
+//     baseUrl: 'https://connections-api.herokuapp.com/',
+//   }),
+//   tagTypes: ['Contact'],
+//   endpoints: builder => ({
+//     getContacts: builder.query({
+//       query: () => `/contacts`,
+//       providesTags: ['Contact'],
+//     }),
+//     addContact: builder.mutation({
+//       query: values => ({
+//         url: `/contacts`,
+//         method: 'POST',
+//         body: values,
+//       }),
+//       invalidatesTags: ['Contacts'],
+//     }),
+//     deleteContact: builder.mutation({
+//       query: contactId => ({
+//         url: `/contacts/${contactId}`,
+//         method: 'DELETE',
+//       }),
+//       invalidatesTags: ['Contacts'],
+//     }),
+//   }),
+// });
+
+// // Export hooks for usage in functional components, which are
+// // auto-generated based on the defined endpoints
+// export const {
+//   useGetContactsQuery,
+//   useAddContactMutation,
+//   useDeleteContactMutation,
+// } = contactsApi;
+// -------------
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
@@ -33,6 +74,7 @@ const anyRejectedReducer = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
+
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
@@ -40,6 +82,11 @@ const contactsSlice = createSlice({
     isLoading: false,
     error: null,
     filter: '',
+  },
+  reducers: {
+    updateFilter(state, action) {
+      state.filter = action.payload;
+    },
   },
   extraReducers: builder =>
     builder
@@ -59,4 +106,4 @@ const contactsSlice = createSlice({
 
 export const contactsReducer = contactsSlice.reducer;
 
-// export const { updateFilter } = contactsSlice.actions;
+export const { updateFilter } = contactsSlice.actions;

@@ -1,38 +1,40 @@
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import {
-  ContactSection,
-  ContactTitle,
-  ContactWrapper,
-} from './ContactList.styled';
-import Item from 'components/Contact/Contact';
-import { selectContacts } from 'redux/contacts/selectors';
-
-export default function ContactList({ title }) {
+import css from './ContactList.module.css';
+import { Contact } from 'components/Contact/Contact';
+import { selectContacts, selectFilter } from 'redux/contacts/selectors';
+// фільтр тут повинен бути
+export default function ContactList() {
   const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
+
+  // const normFilter = filter.value.toLowerCase();
+
+  const filteredContacts = () => {
+    const normFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name?.toLowerCase()?.includes(normFilter)
+    );
+  };
+  const visibleContacts = filteredContacts();
 
   return (
-    <ContactSection>
-      <>
-        <ContactTitle>{title}</ContactTitle>
-
-        <ContactWrapper>
-          {contacts.map(({ id, name, phone }) => (
-            <Item key={id} id={id} name={name} phone={phone} />
-          ))}
-        </ContactWrapper>
-      </>
-    </ContactSection>
+    <ul className={css.list}>
+      {visibleContacts.map(({ id, name, number }) => (
+        <li key={id}>
+          <Contact id={id} name={name} number={number} />
+        </li>
+      ))}
+    </ul>
   );
 }
 
-ContactList.propTypes = {
-  title: PropTypes.string.isRequired,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-};
+// ContactList.propTypes = {
+//   title: PropTypes.string.isRequired,
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     })
+//   ),
+// };
