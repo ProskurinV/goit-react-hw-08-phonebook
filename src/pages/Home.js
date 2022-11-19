@@ -1,3 +1,6 @@
+import { Image } from '@chakra-ui/react';
+
+import image from '../images/book-g8daf5d1f8_640.png';
 const styles = {
   container: {
     minHeight: 'calc(100vh - 50px)',
@@ -7,7 +10,7 @@ const styles = {
   },
   title: {
     fontWeight: 500,
-    fontSize: 48,
+    fontSize: 28,
     textAlign: 'center',
   },
 };
@@ -16,10 +19,8 @@ export default function Home() {
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>
-        Contact manager welcome page
-        <span role="img" aria-label="Greeting icon">
-          💁‍♀️
-        </span>
+        PhoneBook welcome page
+        <Image src={image} alt="img" objectFit="cover" padding="8px" />
       </h1>
     </div>
   );

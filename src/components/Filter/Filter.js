@@ -1,8 +1,8 @@
-import { FindWrapper, FindTitle, Input } from './Filter.styled';
+// import { FindWrapper, FindTitle, Input } from './Filter.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateFilter } from 'redux/contacts/contactsSlice';
 import { selectFilter } from 'redux/contacts/selectors';
-
+import { Input } from '@chakra-ui/react';
 export function Filter() {
   const dispatch = useDispatch();
   const filter = useSelector(selectFilter);
@@ -11,8 +11,8 @@ export function Filter() {
     dispatch(updateFilter(event.currentTarget.value));
   };
   return (
-    <FindWrapper>
-      <FindTitle>Find contacts</FindTitle>
+    <>
+      <h2>Find contacts</h2>
       <Input
         type="text"
         name="filter"
@@ -20,6 +20,6 @@ export function Filter() {
         value={filter}
         onChange={onFilterChange}
       />
-    </FindWrapper>
+    </>
   );
 }

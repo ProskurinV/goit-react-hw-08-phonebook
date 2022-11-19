@@ -1,5 +1,7 @@
 import css from './Contact.module.css';
 // import { useDeleteContactMutation } from 'redux/contacts/contactsSlice';
+import { DeleteIcon } from '@chakra-ui/icons';
+
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations';
 export const Contact = ({ id, name, number }) => {
@@ -17,7 +19,7 @@ export const Contact = ({ id, name, number }) => {
         onClick={handleDelete}
         // disabled={isLoading}
       >
-        Delete
+        <DeleteIcon w={5} h={5} />
       </button>
     </div>
   );

@@ -13,7 +13,9 @@ import { ContactEditor } from 'components/ContactEditor/ContactEditor';
 // import { Outlet, useNavigate } from 'react-router-dom';
 // import { useGetContactsQuery } from 'redux/contacts/contactsSlice';
 import { Filter } from 'components/Filter/Filter';
-import { Loader } from '../components/Spinner/Spinner';
+// import { Loader } from '../components/Spinner/Spinner';
+
+import { CircularProgress } from '@chakra-ui/react';
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ export default function ContactsPage() {
 
   return (
     <>
-      <h1>Phonebook</h1>
+      {/* <h1>Phonebook</h1> */}
       <ContactEditor />
 
       {contacts.length > 0 && (
@@ -36,7 +38,11 @@ export default function ContactsPage() {
           <Filter />
         </>
       )}
-      <div>{isLoading && <Loader />}</div>
+      <div>
+        {isLoading && (
+          <CircularProgress isIndeterminate color="green.300" size="30px" />
+        )}
+      </div>
       <ContactList />
       {error}
     </>
