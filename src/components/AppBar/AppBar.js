@@ -2,7 +2,6 @@ import { useAuth } from 'hooks/useAuth';
 import { AuthNav } from 'components/AuthNav/AuthNav';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { Navigation } from 'components/Navigation/Navigation';
-// import css from './AppBar.module.css';
 import { Box, Flex, Container } from '@chakra-ui/react';
 
 export function AppBar() {
@@ -19,4 +18,3 @@ export function AppBar() {
     </Box>
   );
 }
-//  <header className={css.header}></header>;

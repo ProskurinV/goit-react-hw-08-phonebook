@@ -15,7 +15,7 @@ import { ContactEditor } from 'components/ContactEditor/ContactEditor';
 import { Filter } from 'components/Filter/Filter';
 // import { Loader } from '../components/Spinner/Spinner';
 
-import { CircularProgress } from '@chakra-ui/react';
+import { CircularProgress, Heading, Flex } from '@chakra-ui/react';
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
@@ -29,12 +29,14 @@ export default function ContactsPage() {
 
   return (
     <>
-      {/* <h1>Phonebook</h1> */}
       <ContactEditor />
 
       {contacts.length > 0 && (
         <>
-          <h2>Your Contacts</h2>
+          <Flex justifyContent="center">
+            <Heading>Your Contacts</Heading>
+          </Flex>
+
           <Filter />
         </>
       )}

@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>
-        PhoneBook welcome page
+        PhoneBook
         <Image src={image} alt="img" objectFit="cover" padding="8px" />
       </h1>
     </div>
