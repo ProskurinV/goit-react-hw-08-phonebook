@@ -6,8 +6,7 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
-  authErrorRegister: null,
-  authErrorLogIn: null,
+  authError: null,
 };
 
 const authSlice = createSlice({
@@ -15,38 +14,38 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     errorLogIn(state, action) {
-      state.authErrorLogIn = action.payload;
+      state.authError = action.payload;
     },
     errorRegister(state, action) {
-      state.authErrorRegister = action.payload;
+      state.authError = action.payload;
     },
   },
   extraReducers: {
     [register.pending](state) {
-      state.authErrorRegister = null;
+      state.authError = null;
     },
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
-      state.authErrorRegister = null;
+      state.authError = null;
     },
     [register.rejected](state, action) {
       state.isLoggedIn = false;
-      state.authErrorRegister = action.payload;
+      state.authError = action.payload;
     },
     [logIn.pending](state) {
-      state.authErrorLogIn = null;
+      state.authError = null;
     },
     [logIn.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
-      state.authErrorLogIn = null;
+      state.authError = null;
     },
     [logIn.rejected](state, action) {
       state.isLoggedIn = false;
-      state.authErrorLogIn = action.payload;
+      state.authError = action.payload;
     },
     [logOut.fulfilled](state) {
       state.user = { name: null, email: null };

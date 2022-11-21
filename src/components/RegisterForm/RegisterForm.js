@@ -13,7 +13,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import toast, { Toaster } from 'react-hot-toast';
-import { selectRegisterError } from 'redux/auth/selectors';
+import { selectError } from 'redux/auth/selectors';
 
 let schema = yup.object().shape({
   name: yup.string().min(3).max(20),
@@ -23,7 +23,7 @@ let schema = yup.object().shape({
 
 export function RegisterForm() {
   const dispatch = useDispatch();
-  const error = useSelector(selectRegisterError);
+  const error = useSelector(selectError);
 
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
@@ -41,6 +41,7 @@ export function RegisterForm() {
             if (!error) {
               toast.success(`Registration successful`);
               resetForm();
+              return;
             } else {
               toast.error(`Something went wrong, please check your data`);
             }

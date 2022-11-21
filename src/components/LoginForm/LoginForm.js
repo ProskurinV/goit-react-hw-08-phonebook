@@ -14,7 +14,7 @@ import {
 import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-import { selectLogInError } from 'redux/auth/selectors';
+import { selectError } from 'redux/auth/selectors';
 
 let schema = yup.object().shape({
   email: yup.string().email().required('Please, enter email'),
@@ -27,7 +27,7 @@ let schema = yup.object().shape({
 
 export function LoginForm() {
   const dispatch = useDispatch();
-  const error = useSelector(selectLogInError);
+  const error = useSelector(selectError);
 
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
