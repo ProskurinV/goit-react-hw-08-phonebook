@@ -7,13 +7,10 @@ import {
   selectError,
   selectContacts,
 } from 'redux/contacts/selectors';
-// import { Helmet } from 'react-helmet';
 import ContactList from 'components/ContactList';
 import { ContactEditor } from 'components/ContactEditor/ContactEditor';
-// import { Outlet, useNavigate } from 'react-router-dom';
-// import { useGetContactsQuery } from 'redux/contacts/contactsSlice';
+
 import { Filter } from 'components/Filter/Filter';
-// import { Loader } from '../components/Spinner/Spinner';
 
 import { CircularProgress, Heading, Flex } from '@chakra-ui/react';
 

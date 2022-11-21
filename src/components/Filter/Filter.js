@@ -1,4 +1,3 @@
-// import { FindWrapper, FindTitle, Input } from './Filter.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateFilter } from 'redux/contacts/contactsSlice';
 import { selectFilter } from 'redux/contacts/selectors';
@@ -19,7 +18,7 @@ export function Filter() {
           Find contacts
         </Heading>
       </Flex>
-      <Flex justifyContent="center">
+      <Flex justifyContent="center" paddingBottom="8px" paddingTop="8px">
         <Input
           width="auto"
           type="text"

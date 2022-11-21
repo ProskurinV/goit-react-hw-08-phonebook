@@ -1,4 +1,5 @@
 import { DeleteIcon } from '@chakra-ui/icons';
+// import Notiflix from 'notiflix';
 
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations';

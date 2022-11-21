@@ -49,7 +49,7 @@ export function RegisterForm() {
       <Box bg="white" p={6} rounded="md">
         <form onSubmit={formik.handleSubmit} validationSchema={schema}>
           <VStack spacing={4} align="flex-start">
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="name">Name</FormLabel>
               <Input
                 id="name"
@@ -61,7 +61,7 @@ export function RegisterForm() {
                 value={formik.values.name}
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
@@ -73,7 +73,7 @@ export function RegisterForm() {
                 value={formik.values.email}
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="password">Password</FormLabel>
               <Input
                 id="password"

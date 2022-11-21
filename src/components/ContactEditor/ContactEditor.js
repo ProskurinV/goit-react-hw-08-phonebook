@@ -1,88 +1,184 @@
-import { useFormik } from 'formik';
-import { addContact } from 'redux/contacts/operations';
-import { selectContacts } from 'redux/contacts/selectors';
-import * as yup from 'yup';
-import Notiflix from 'notiflix';
+import { Field, Formik } from 'formik';
 
-import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
   Flex,
   FormControl,
   FormLabel,
+  FormErrorMessage,
   Input,
   VStack,
 } from '@chakra-ui/react';
-
-let schema = yup.object().shape({
-  name: yup.string().required('Please, enter name'),
-  number: yup.string().min(7).required('Please, enter correct number'),
-});
+import { addContact } from 'redux/contacts/operations';
+import { selectContacts } from 'redux/contacts/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import Notiflix from 'notiflix';
 
 export function ContactEditor() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      number: '',
-    },
-    onSubmit: (values, { resetForm }) => {
-      const findDuplicateName = (contact, newName) => {
-        return contacts.find(({ name }) => name.toLowerCase() === newName);
-      };
-      const { name } = values;
-      const nameToRegistr = name.toLowerCase();
-      if (findDuplicateName(contacts.items, nameToRegistr)) {
-        Notiflix.Notify.info(`${name} is already in your contacts`);
-        return;
-      }
-
-      dispatch(addContact(values));
-      resetForm();
-    },
-  });
 
   return (
-    <Flex bg="gray.100" align="center" justify="center" h="100vh">
-      <Box bg="white" p={6} rounded="md">
-        <form onSubmit={formik.handleSubmit} validationSchema={schema}>
-          <VStack spacing={4} align="flex-start">
-            <FormControl>
-              <FormLabel htmlFor="name">Name</FormLabel>
-              <Input
-                id="name"
-                name="name"
-                placeholder="Enter name"
-                type="name"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="number">Number</FormLabel>
-              <Input
-                id="number"
-                name="number"
-                type="tel"
-                placeholder="Enter phone"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={formik.values.number}
-              />
-            </FormControl>
+    <Flex bg="gray.100" align="center" justify="center" h="85vh">
+      <Box bg="white" p={6} rounded="md" w={64}>
+        <Formik
+          initialValues={{
+            name: '',
+            number: '',
+          }}
+          onSubmit={(values, { resetForm }) => {
+            const findDuplicateName = (contact, newName) => {
+              return contacts.find(
+                ({ name }) => name.toLowerCase() === newName
+              );
+            };
+            const { name } = values;
+            const nameToRegistr = name.toLowerCase();
+            if (findDuplicateName(contacts.items, nameToRegistr)) {
+              Notiflix.Notify.info(`${name} is already in your contacts`);
+              return;
+            }
 
-            <Button type="submit" colorScheme="purple" width="full">
-              Add contact
-            </Button>
-          </VStack>
-        </form>
+            dispatch(addContact(values));
+            Notiflix.Notify.info(`${name} has been added to your contacts`);
+            resetForm();
+          }}
+        >
+          {({ handleSubmit, errors, touched }) => (
+            <form onSubmit={handleSubmit}>
+              <VStack spacing={4} align="flex-start">
+                <FormControl isRequired>
+                  <FormLabel htmlFor="name">Name</FormLabel>
+
+                  <Field
+                    as={Input}
+                    id="name"
+                    name="name"
+                    type="name"
+                    variant="filled"
+                    placeholder="Enter name"
+                  />
+                </FormControl>
+                <FormControl
+                  isRequired
+                  isInvalid={!!errors.number && touched.number}
+                >
+                  <FormLabel htmlFor="number">Number</FormLabel>
+                  <Field
+                    as={Input}
+                    id="number"
+                    name="number"
+                    type="number"
+                    placeholder="Enter phone"
+                    variant="filled"
+                  />
+                  <FormErrorMessage>{errors.number}</FormErrorMessage>
+                </FormControl>
+
+                <Button type="submit" colorScheme="purple" width="full">
+                  Add contact
+                </Button>
+              </VStack>
+            </form>
+          )}
+        </Formik>
       </Box>
     </Flex>
   );
 }
+// /////////////
+// import { useFormik } from 'formik';
+// import { addContact } from 'redux/contacts/operations';
+// import { selectContacts } from 'redux/contacts/selectors';
+// import * as yup from 'yup';
+// import Notiflix from 'notiflix';
+// import { Formik, Field } from 'formik';
+
+// import { useDispatch, useSelector } from 'react-redux';
+// import {
+//   Box,
+//   Button,
+//   Flex,
+//   FormControl,
+//   FormLabel,
+//   Input,
+//   VStack,
+// } from '@chakra-ui/react';
+
+// let schema = yup.object().shape({
+//   name: yup.string().required('Please, enter name'),
+//   number: yup.string().min(7).required('Please, enter correct number'),
+// });
+
+// export function ContactEditor() {
+//   // const [input, setInput] = useState('');
+//   // const handleInputChange = e => setInput(e.target.value);
+//   // const isError = input === '';
+
+//   const dispatch = useDispatch();
+//   const contacts = useSelector(selectContacts);
+//   const formik = useFormik({
+//     initialValues: {
+//       name: '',
+//       number: '',
+//     },
+//     onSubmit: (values, { resetForm }) => {
+//       const findDuplicateName = (contact, newName) => {
+//         return contacts.find(({ name }) => name.toLowerCase() === newName);
+//       };
+//       const { name } = values;
+//       const nameToRegistr = name.toLowerCase();
+//       if (findDuplicateName(contacts.items, nameToRegistr)) {
+//         Notiflix.Notify.info(`${name} is already in your contacts`);
+//         return;
+//       }
+
+//       dispatch(addContact(values));
+//       Notiflix.Notify.info(`${name} has been added to your contacts`);
+//       resetForm();
+//     },
+//   });
+
+//   return (
+//     <Flex bg="gray.100" align="center" justify="center" h="50vh">
+//       <Box bg="white" p={6} rounded="md">
+//         <Formik onSubmit={formik.handleSubmit} validationSchema={schema}>
+//           <VStack spacing={4} align="flex-start">
+//             <FormControl>
+//               <FormLabel htmlFor="name">Name</FormLabel>
+//               <Input
+//                 id="name"
+//                 name="name"
+//                 placeholder="Enter name"
+//                 type="name"
+//                 variant="filled"
+//                 onChange={formik.handleChange}
+//                 value={formik.values.name}
+//               />
+//             </FormControl>
+//             <FormControl>
+//               <FormLabel htmlFor="number">Number</FormLabel>
+//               <Input
+//                 id="number"
+//                 name="number"
+//                 type="tel"
+//                 placeholder="Enter phone"
+//                 variant="filled"
+//                 onChange={formik.handleChange}
+//                 value={formik.values.number}
+//               />
+//             </FormControl>
+
+//             <Button type="submit" colorScheme="purple" width="full">
+//               Add contact
+//             </Button>
+//           </VStack>
+//         </Formik>
+//       </Box>
+//     </Flex>
+//   );
+// }
 
 // import { useDispatch, useSelector } from 'react-redux';
 // import { Formik } from 'formik';

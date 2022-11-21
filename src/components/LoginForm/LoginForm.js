@@ -1,8 +1,7 @@
 // import { Formik } from 'formik';
 import { useFormik } from 'formik';
 
-import * as yup from 'yup';
-// import { FormBook, Input, Label, Btn, Error } from './LoginForm.styled';
+// import * as yup from 'yup';
 import {
   Box,
   Button,
@@ -15,14 +14,14 @@ import {
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 
-let schema = yup.object().shape({
-  email: yup.string().email().required('Please, enter email'),
-  password: yup
-    .string()
-    .required('No password provided.')
-    .min(6, 'Password is too short - should be 6 chars minimum.')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
-});
+// let schema = yup.object().shape({
+//   email: yup.string().email().required('Please, enter email'),
+//   password: yup
+//     .string()
+//     .required('No password provided.')
+//     .min(6, 'Password is too short - should be 6 chars minimum.')
+//     .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+// });
 
 export function LoginForm() {
   const dispatch = useDispatch();
@@ -40,9 +39,9 @@ export function LoginForm() {
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
       <Box bg="white" p={6} rounded="md">
-        <form onSubmit={formik.handleSubmit} validationSchema={schema}>
+        <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4} align="flex-start">
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
@@ -54,7 +53,7 @@ export function LoginForm() {
                 value={formik.values.email}
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="password">Password</FormLabel>
               <Input
                 id="password"

@@ -3,7 +3,7 @@ import { Image } from '@chakra-ui/react';
 import image from '../images/book-g8daf5d1f8_640.png';
 const styles = {
   container: {
-    minHeight: 'calc(100vh - 50px)',
+    height: '85vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -20,7 +20,13 @@ export default function Home() {
     <div style={styles.container}>
       <h1 style={styles.title}>
         PhoneBook
-        <Image src={image} alt="img" objectFit="cover" padding="8px" />
+        <Image
+          src={image}
+          alt="img"
+          objectFit="cover"
+          width="70%"
+          padding="8px"
+        />
       </h1>
     </div>
   );
