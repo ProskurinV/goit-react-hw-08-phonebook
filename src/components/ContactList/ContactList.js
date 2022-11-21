@@ -17,7 +17,12 @@ export default function ContactList() {
 
   return (
     <ul>
-      <Flex justifyContent="center" gap="10px" wrap="wrap">
+      <Flex
+        justifyContent="center"
+        gap="10px"
+        wrap="wrap"
+        backgroundColor="#F7FAFC"
+      >
         {visibleContacts.map(({ id, name, number }) => (
           <li key={id}>
             <Contact id={id} name={name} number={number} />

@@ -49,6 +49,7 @@ export function App() {
           }
         />
       </Route>
+      <Route path="*" element={<Layout />} replace />
     </Routes>
   );
 }
