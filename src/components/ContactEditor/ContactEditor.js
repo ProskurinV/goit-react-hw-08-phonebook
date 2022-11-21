@@ -44,7 +44,7 @@ export function ContactEditor() {
             const { name } = values;
             const nameToRegistr = name.toLowerCase();
             if (findDuplicateName(contacts.items, nameToRegistr)) {
-              toast(`${name} is already in your contacts`);
+              toast.error(`${name} is already in your contacts`);
               return;
             }
 
