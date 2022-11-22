@@ -41,9 +41,9 @@ export function LoginForm() {
           onSubmit={(values, { resetForm }) => {
             dispatch(logIn(values));
 
-            if (!error) {
+            if (error === null) {
               toast.success(`Log in success`);
-              resetForm();
+              // resetForm();
             } else {
               toast.error(`Something went wrong, please check your data`);
             }

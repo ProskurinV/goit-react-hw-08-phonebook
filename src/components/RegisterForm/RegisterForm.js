@@ -38,10 +38,9 @@ export function RegisterForm() {
           onSubmit={(values, { resetForm }) => {
             dispatch(register(values));
 
-            if (!error) {
+            if (error === null) {
               toast.success(`Registration successful`);
-              resetForm();
-              return;
+              // resetForm();
             } else {
               toast.error(`Something went wrong, please check your data`);
             }
