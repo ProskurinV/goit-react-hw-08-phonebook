@@ -1,4 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDispatch,
+  // useSelector
+} from 'react-redux';
 import { register } from 'redux/auth/operations';
 import { Field, Formik } from 'formik';
 import * as yup from 'yup';
@@ -13,7 +16,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import toast, { Toaster } from 'react-hot-toast';
-import { selectError } from 'redux/auth/selectors';
+// import { selectError } from 'redux/auth/selectors';
 
 let schema = yup.object().shape({
   name: yup.string().min(3).max(20),
@@ -23,7 +26,18 @@ let schema = yup.object().shape({
 
 export function RegisterForm() {
   const dispatch = useDispatch();
-  const error = useSelector(selectError);
+  // const error = useSelector(selectError);
+
+  async function handleFormSubmit(values) {
+    await dispatch(register(values))
+      .unwrap()
+      .catch(toast.error(`Something went wrong, please check your data`));
+
+    //  if (error === null) {
+    //     toast.success(`Log in success`);
+    //     // resetForm();
+    //   }
+  }
 
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
@@ -35,16 +49,7 @@ export function RegisterForm() {
             password: '',
           }}
           validationSchema={schema}
-          onSubmit={(values, { resetForm }) => {
-            dispatch(register(values));
-
-            if (error === null) {
-              toast.success(`Registration successful`);
-              // resetForm();
-            } else {
-              toast.error(`Something went wrong, please check your data`);
-            }
-          }}
+          onSubmit={handleFormSubmit}
         >
           {({ handleSubmit, errors, touched }) => (
             <form onSubmit={handleSubmit}>

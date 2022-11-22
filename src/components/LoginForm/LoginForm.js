@@ -12,9 +12,12 @@ import {
 } from '@chakra-ui/react';
 
 import toast, { Toaster } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDispatch,
+  // useSelector
+} from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-import { selectError } from 'redux/auth/selectors';
+// import { selectError } from 'redux/auth/selectors';
 
 let schema = yup.object().shape({
   email: yup.string().email().required('Please, enter email'),
@@ -27,7 +30,18 @@ let schema = yup.object().shape({
 
 export function LoginForm() {
   const dispatch = useDispatch();
-  const error = useSelector(selectError);
+  // const error = useSelector(selectError);
+
+  async function handleFormSubmit(values) {
+    await dispatch(logIn(values))
+      .unwrap()
+      .catch(toast.error(`Something went wrong, please check your data`));
+
+    // if (error === null) {
+    //   toast.success(`Log in success`);
+    //   // resetForm();
+    // }
+  }
 
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
@@ -38,16 +52,7 @@ export function LoginForm() {
             password: '',
           }}
           validationSchema={schema}
-          onSubmit={(values, { resetForm }) => {
-            dispatch(logIn(values));
-
-            if (error === null) {
-              toast.success(`Log in success`);
-              // resetForm();
-            } else {
-              toast.error(`Something went wrong, please check your data`);
-            }
-          }}
+          onSubmit={handleFormSubmit}
         >
           {({ handleSubmit, errors, touched }) => (
             <form onSubmit={handleSubmit}>
