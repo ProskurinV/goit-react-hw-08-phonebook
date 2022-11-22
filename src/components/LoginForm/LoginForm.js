@@ -35,7 +35,7 @@ export function LoginForm() {
   async function handleFormSubmit(values) {
     await dispatch(logIn(values))
       .unwrap()
-      .than(toast.success(`Log in success`))
+      .then(toast.success(`Log in success`))
       .catch(toast.error(`Something went wrong, please check your data`));
   }
   return (

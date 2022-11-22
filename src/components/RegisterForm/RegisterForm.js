@@ -31,7 +31,7 @@ export function RegisterForm() {
   async function handleFormSubmit(values) {
     await dispatch(register(values))
       .unwrap()
-      .than(toast.success(`Registration successful`))
+      .then(toast.success(`Registration successful`))
       .catch(toast.error(`Something went wrong, please check your data`));
   }
   return (
