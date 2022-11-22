@@ -35,14 +35,9 @@ export function LoginForm() {
   async function handleFormSubmit(values) {
     await dispatch(logIn(values))
       .unwrap()
+      .than(toast.success(`Log in success`))
       .catch(toast.error(`Something went wrong, please check your data`));
-
-    // if (error === null) {
-    //   toast.success(`Log in success`);
-    //   // resetForm();
-    // }
   }
-
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
       <Box bg="white" p={6} rounded="md">
