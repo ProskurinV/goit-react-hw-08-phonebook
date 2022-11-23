@@ -35,7 +35,7 @@ export function ContactEditor() {
             number: '',
           }}
           validationSchema={schema}
-          onSubmit={values => {
+          onSubmit={(values, { resetForm }) => {
             const findDuplicateName = (contact, newName) => {
               return contacts.find(
                 ({ name }) => name.toLowerCase() === newName
@@ -49,6 +49,7 @@ export function ContactEditor() {
             }
 
             dispatch(addContact(values));
+            resetForm();
           }}
         >
           {({ handleSubmit, errors, touched }) => (

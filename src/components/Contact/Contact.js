@@ -11,11 +11,19 @@ export const Contact = ({ id, name, number }) => {
 
   return (
     <Card>
-      <CardBody>
+      <CardBody
+        minW={100}
+        h={50}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        gap="5px"
+        padding="5px"
+      >
         <Text>
           {name} : {number}
         </Text>
-        <Button colorScheme="blue" type="button" onClick={handleDelete}>
+        <Button colorScheme="blue" type="button" onClick={handleDelete} w={10}>
           <DeleteIcon w={5} h={5} />
         </Button>
       </CardBody>

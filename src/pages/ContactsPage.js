@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { ContactEditor } from '../components/ContactEditor/ContactEditor';
 import { fetchContacts } from 'redux/contacts/operations';
 import {
   selectIsLoading,
@@ -30,18 +29,14 @@ export default function ContactsPage() {
 
       {contacts.length > 0 && (
         <>
-          {/* <Flex justifyContent="center">
-            <Heading>Your Contacts</Heading>
-          </Flex> */}
-
           <Filter />
         </>
       )}
-      <div>
+      <>
         {isLoading && (
           <CircularProgress isIndeterminate color="green.300" size="30px" />
         )}
-      </div>
+      </>
       <ContactList />
       {error}
     </>
