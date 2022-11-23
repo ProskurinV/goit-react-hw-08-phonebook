@@ -49,7 +49,6 @@ export function ContactEditor() {
             }
 
             dispatch(addContact(values));
-            toast.success(`${name} has been added to your contacts`);
           }}
         >
           {({ handleSubmit, errors, touched }) => (

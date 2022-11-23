@@ -1,7 +1,4 @@
-import {
-  useDispatch,
-  // useSelector
-} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
 import { Field, Formik } from 'formik';
 import * as yup from 'yup';
@@ -15,8 +12,7 @@ import {
   Input,
   VStack,
 } from '@chakra-ui/react';
-import toast, { Toaster } from 'react-hot-toast';
-// import { selectError } from 'redux/auth/selectors';
+import { Toaster } from 'react-hot-toast';
 
 let schema = yup.object().shape({
   name: yup.string().min(3).max(20),
@@ -26,13 +22,9 @@ let schema = yup.object().shape({
 
 export function RegisterForm() {
   const dispatch = useDispatch();
-  // const error = useSelector(selectError);
 
-  async function handleFormSubmit(values) {
-    await dispatch(register(values))
-      .unwrap()
-      .then(toast.success(`Registration successful`))
-      .catch(toast.error(`Something went wrong, please check your data`));
+  function handleFormSubmit(values) {
+    dispatch(register(values));
   }
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">

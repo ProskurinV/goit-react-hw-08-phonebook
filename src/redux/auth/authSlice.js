@@ -1,56 +1,53 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { logIn, logOut, refreshUser, register } from './operations';
+// import { toast } from 'react-hot-toast';
 
 const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
-  authError: null,
+  error: null,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
-  reducers: {
-    errorLogIn(state, action) {
-      state.authError = action.payload;
-    },
-    errorRegister(state, action) {
-      state.authError = action.payload;
-    },
-  },
+
   extraReducers: {
     [register.pending](state) {
-      state.authError = null;
+      state.error = null;
     },
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
-      state.authError = null;
+      // toast.success(`You are registred `);
     },
     [register.rejected](state, action) {
       state.isLoggedIn = false;
-      state.authError = action.payload;
+      state.error = action.payload;
+      // toast.error(`Something went wrong, please check your data`);
     },
     [logIn.pending](state) {
-      state.authError = null;
+      state.error = null;
     },
     [logIn.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
-      state.authError = null;
+      // toast.success(`You are logged in`);
     },
     [logIn.rejected](state, action) {
       state.isLoggedIn = false;
-      state.authError = action.payload;
+      state.error = action.payload;
+      // toast.error(`Something went wrong, please check your data`);
     },
     [logOut.fulfilled](state) {
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
+      // toast.success(`You are logged out `);
     },
     [refreshUser.pending](state) {
       state.isRefreshing = true;
@@ -65,7 +62,5 @@ const authSlice = createSlice({
     },
   },
 });
-
-export const { errorLogIn, errorRegister } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

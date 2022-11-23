@@ -11,7 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import {
   useDispatch,
   // useSelector
@@ -32,11 +32,8 @@ export function LoginForm() {
   const dispatch = useDispatch();
   // const error = useSelector(selectError);
 
-  async function handleFormSubmit(values) {
-    await dispatch(logIn(values))
-      .unwrap()
-      .then(toast.success(`Log in success`))
-      .catch(toast.error(`Something went wrong, please check your data`));
+  function handleFormSubmit(values) {
+    dispatch(logIn(values));
   }
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
