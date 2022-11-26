@@ -23,12 +23,12 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await axios.post('/users/signup', credentials);
-      toast.success(`You are registred `);
+      // toast.success(`You are registred `);
       setAuthHeader(data.token);
 
       return data;
     } catch (error) {
-      toast.error(`Something went wrong, please check your data`);
+      // toast.error(`Something went wrong, please check your data`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -44,12 +44,12 @@ export const logIn = createAsyncThunk(
     try {
       const { data } = await axios.post('/users/login', credentials);
       // After successful login, add the token to the HTTP header
-      toast.success(`You are logged in`);
+      // toast.success(`You are logged in`);
       setAuthHeader(data.token);
 
       return data;
     } catch (error) {
-      toast.error(`Something went wrong, please check your data`);
+      // toast.error(`Something went wrong, please check your data`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
 import { Field, Formik } from 'formik';
+import Notiflix from 'notiflix';
 import * as yup from 'yup';
 import {
   Box,
@@ -12,7 +13,6 @@ import {
   Input,
   VStack,
 } from '@chakra-ui/react';
-import { Toaster } from 'react-hot-toast';
 
 let schema = yup.object().shape({
   name: yup.string().min(3).max(20),
@@ -23,9 +23,16 @@ let schema = yup.object().shape({
 export function RegisterForm() {
   const dispatch = useDispatch();
 
-  function handleFormSubmit(values) {
-    dispatch(register(values));
-  }
+  const handleFormSubmit = async (values, { resetForm }) => {
+    const { error } = await dispatch(register(values));
+    if (!error) {
+      resetForm();
+      Notiflix.Notify.success('You are registred');
+      return;
+    }
+    Notiflix.Notify.failure(`Something went wrong, please check your data`);
+  };
+
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
       <Box bg="white" p={6} rounded="md">
@@ -94,7 +101,6 @@ export function RegisterForm() {
             </form>
           )}
         </Formik>
-        <Toaster />
       </Box>
     </Flex>
   );

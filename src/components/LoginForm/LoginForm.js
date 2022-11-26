@@ -11,7 +11,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { Toaster } from 'react-hot-toast';
+import Notiflix from 'notiflix';
+
 import {
   useDispatch,
   // useSelector
@@ -32,9 +33,21 @@ export function LoginForm() {
   const dispatch = useDispatch();
   // const error = useSelector(selectError);
 
-  function handleFormSubmit(values) {
-    dispatch(logIn(values));
-  }
+  //  function handleFormSubmit(values) {
+  //    dispatch(logIn(values));
+  // }
+
+  const handleFormSubmit = (values, { resetForm }) => {
+    const { error } = dispatch(logIn(values));
+    if (!error) {
+      resetForm();
+      Notiflix.Notify.success('You are logged in');
+      return;
+    } else {
+      Notiflix.Notify.failure(`Something went wrong, please check your data`);
+    }
+  };
+
   return (
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
       <Box bg="white" p={6} rounded="md">
@@ -86,8 +99,6 @@ export function LoginForm() {
             </form>
           )}
         </Formik>
-
-        <Toaster />
       </Box>
     </Flex>
   );

@@ -33,7 +33,7 @@ export const deleteContact = createAsyncThunk(
   async (contactId, thunkAPI) => {
     try {
       const { data } = await axios.delete(`/contacts/${contactId}`);
-      toast.error(`Contact has been deketed from your contacts`);
+      toast.error(`Contact has been deleted from your contacts`);
 
       return data;
     } catch (error) {
