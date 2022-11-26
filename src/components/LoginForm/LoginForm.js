@@ -37,15 +37,14 @@ export function LoginForm() {
   //    dispatch(logIn(values));
   // }
 
-  const handleFormSubmit = (values, { resetForm }) => {
-    const { error } = dispatch(logIn(values));
+  const handleFormSubmit = async (values, { resetForm }) => {
+    const { error } = await dispatch(logIn(values));
     if (!error) {
       resetForm();
       Notiflix.Notify.success('You are logged in');
       return;
-    } else {
-      Notiflix.Notify.failure(`Something went wrong, please check your data`);
     }
+    Notiflix.Notify.failure(`Something went wrong, please check your data`);
   };
 
   return (
