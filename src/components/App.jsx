@@ -1,7 +1,7 @@
 import { useAuth } from 'hooks';
 import { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { refreshUser } from 'redux/auth/operations';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
@@ -49,7 +49,7 @@ export function App() {
           }
         />
       </Route>
-      <Route path="*" element={<Layout />} replace />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
